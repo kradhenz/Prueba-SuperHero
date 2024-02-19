@@ -1,0 +1,27 @@
+:root {
+    --blackJS: #323330;
+    --yellowJS: #F0DB4F;
+}
+
+* {
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth scroll;
+}
+
+body {
+    background-color: var(--blackJS);
+    color: var(--yellowJS);
+}
+
+.logo {
+    width: 50px;
+    border-radius: 5%;
+}
+
+.header_img{
+    width: 350px;
+    border-radius: 25%;
+}
