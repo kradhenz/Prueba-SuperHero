@@ -12,8 +12,8 @@ html {
 }
 
 body {
-    background-color: var(--blackJS);
-    color: var(--yellowJS);
+    background-color: var(--yellowJS);
+    color: var(--blackJS);
 }
 
 .logo {
@@ -21,7 +21,29 @@ body {
     border-radius: 5%;
 }
 
-.header_img{
-    width: 350px;
+.header_img {
+    width: 250px;
     border-radius: 25%;
+}
+
+#forms {
+    background-color: var(--blackJS);
+    color: var(--yellowJS);
+}
+
+#btn {
+    background-color: var(--yellowJS);
+    color: var(--blackJS);
+    border-color: var(--yellowJS);
+}
+
+@media (min-width: 768px) {
+    .header_img {
+        width: 350px;
+    }
+
+    form {
+        width: 75%;
+        padding-left: 325px;
+    }
 }
