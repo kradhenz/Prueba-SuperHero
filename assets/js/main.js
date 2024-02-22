@@ -82,7 +82,6 @@ $(document).ready(function () {
         const listHtml = listItems.map(item => `<li class="list-group-item"><em>${item.label}</em>: ${item.value}</li>`).join("");
         $("#heroInfoList").html(listHtml);      // Show information list in the HTML
     }
-
     // Function to show stats in a graph about a hero
     function displayStats(heroData) {
         let graph = [];     // Array to save stats 
