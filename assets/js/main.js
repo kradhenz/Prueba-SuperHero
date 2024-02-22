@@ -9,13 +9,13 @@ $(document).ready(function () {
             $("#idHero").val("");
             $("#result").html("");
             $("#chart").html("");
-            whatHero(num);
+            whichHero(num);
         } else {
             alert('Por favor ingrese un valor numérico');
         }
     });
     // Main function: to search a Hero based in a input number
-    function whatHero(num) {
+    function whichHero(num) {
         $.ajax({
             dataType: "json",
             method: "GET",
@@ -38,12 +38,20 @@ $(document).ready(function () {
         });
     }
 
-    // Function to show information about a hero
+    /* > NOTE!: aquí me guié de lo que hizo el profesor porque sinceramente no se me ocurría como trabajar los container que se deben mostrar. Mi contribución fue generar un código más eficiente y ordenado mediante el uso de funciones. < */
+
+    // Important function to manage information about a hero
     function displayHero(heroData) {
         // Variable contains the structure to show information & modify the HTML with the data
-        const hero = `
-            <h3>Super Héroe Encontrado</h3>
+        const hero = createHero(heroData);  
+        $("#result").html(hero);    // Show information in the HTML
+        bioInfo(heroData);
+    }
+    // Function to show information about a hero
+    function createHero(heroData) {
+        return `
             <section class="card">
+            <h3>Super Héroe Encontrado</h3>
                 <section class="row">
                     <section class="col-md-4">
                         <img src="${heroData.image.url}" class="card-img" alt="" />
@@ -52,47 +60,39 @@ $(document).ready(function () {
                         <section class="card-body">
                             <h5 class="card-title">Nombre: ${heroData.name}</h5>
                             <p class="card-text">Conexiones: ${heroData.connections["group-affiliation"]}</p>
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <em>Publicado por </em>: ${heroData.biography.publisher}
-                                </li>
-                                <li class="list-group-item">
-                                    <em>Ocupación: ${heroData.work.occupation}</em>
-                                </li>
-                                <li class="list-group-item">
-                                    <em>Primera Aparición: ${heroData.biography["first-appearance"]}</em>
-                                </li>
-                                <li class="list-group-item">
-                                    <em>Altura: ${heroData.appearance.height.join(" - ")}</em>
-                                </li>
-                                <li class="list-group-item">
-                                    <em>Peso: ${heroData.appearance.weight.join(" - ")}</em>
-                                </li>
-                                <li class="list-group-item">
-                                    <em>Aliases: ${heroData.biography.aliases}</em>
-                                </li>
-                            </ul>
+                            <ul class="list-group" id="heroInfoList"></ul>
                         </section>
                     </section>
                 </section>
             </section>
-        `;
-        $("#result").html(hero); // Show the hero information in the HTML
+        `;  // 'end' return
     }
+    // Function to show information about a hero
+    function bioInfo(heroData) {
+        // Array contains the information about a hero
+        const listItems = [
+            { label: "Publicado por", value: heroData.biography.publisher },
+            { label: "Ocupación", value: heroData.work.occupation },
+            { label: "Primera Aparición", value: heroData.biography["first-appearance"] },
+            { label: "Altura", value: heroData.appearance.height.join(" - ") },
+            { label: "Peso", value: heroData.appearance.weight.join(" - ") },
+            { label: "Aliases", value: heroData.biography.aliases.join(", ") }
+        ];
+        // Show information list in the HTML using map function
+        const listHtml = listItems.map(item => `<li class="list-group-item"><em>${item.label}</em>: ${item.value}</li>`).join("");
+        $("#heroInfoList").html(listHtml);      // Show information list in the HTML
+    }
+
     // Function to show stats in a graph about a hero
     function displayStats(heroData) {
-        // Save stats in an array
-        let graph = [];
-        // Push stats in the array
-        for (let key in heroData.powerstats) {
+        let graph = [];     // Array to save stats 
+        for (let key in heroData.powerstats) {      // Push stats in the array
             graph.push({
                 label: key,
-                // Transform the string into a number
-                y: parseInt(heroData.powerstats[key]),
+                y: parseInt(heroData.powerstats[key]),      // Transform the string into a number
             });
         }
-        // Set options for the graph 
-        let options = {
+        let options = {     // Set options for the graph 
             title: {
                 text: `Estadísticas de Poder para ${heroData.name}`,
             },
@@ -106,7 +106,6 @@ $(document).ready(function () {
                 dataPoints: graph,
             }],
         };
-        // Show the graph in the HTML
-        $("#chart").CanvasJSChart(options);
+        $("#chart").CanvasJSChart(options);     // Show the graph in the HTML
     }
 });
