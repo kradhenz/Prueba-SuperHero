@@ -8,7 +8,7 @@ $(document).ready(function () {
         if (isnum.test(num)) {
             $("#idHero").val("");
             $("#result").html("");
-            $("#chartContainer").html("");
+            $("#chart").html("");
             whatHero(num);
         } else {
             alert('Por favor ingrese un valor numérico');
@@ -40,15 +40,16 @@ $(document).ready(function () {
 
     // Function to show information about a hero
     function displayHero(heroData) {
+        // Variable contains the structure to show information & modify the HTML with the data
         const hero = `
             <h3>Super Héroe Encontrado</h3>
-            <div class="card">
-                <div class="row">
-                    <div class="col-md-4">
+            <section class="card">
+                <section class="row">
+                    <section class="col-md-4">
                         <img src="${heroData.image.url}" class="card-img" alt="" />
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
+                    </section>
+                    <section class="col-md-8">
+                        <section class="card-body">
                             <h5 class="card-title">Nombre: ${heroData.name}</h5>
                             <p class="card-text">Conexiones: ${heroData.connections["group-affiliation"]}</p>
                             <ul class="list-group">
@@ -71,30 +72,33 @@ $(document).ready(function () {
                                     <em>Aliases: ${heroData.biography.aliases}</em>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
         `;
-        $("#result").html(hero);
+        $("#result").html(hero); // Show the hero information in the HTML
     }
     // Function to show stats in a graph about a hero
     function displayStats(heroData) {
+        // Save stats in an array
         let graph = [];
+        // Push stats in the array
         for (let key in heroData.powerstats) {
             graph.push({
                 label: key,
+                // Transform the string into a number
                 y: parseInt(heroData.powerstats[key]),
             });
         }
-
+        // Set options for the graph 
         let options = {
             title: {
                 text: `Estadísticas de Poder para ${heroData.name}`,
             },
             data: [{
                 type: "pie",
-                startAngle: 45,
+                startAngle: 35,
                 showInLegend: true,
                 legendText: "{label}",
                 indexLabel: "{label} ({y})",
@@ -102,7 +106,7 @@ $(document).ready(function () {
                 dataPoints: graph,
             }],
         };
-
-        $("#chartContainer").CanvasJSChart(options);
+        // Show the graph in the HTML
+        $("#chart").CanvasJSChart(options);
     }
 });

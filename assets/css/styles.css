@@ -11,7 +11,7 @@ html {
     scroll-behavior: smooth scroll;
 }
 
-body {
+body, #btn, #result, #chart {
     background-color: var(--yellowJS);
     color: var(--blackJS);
 }
@@ -32,10 +32,9 @@ body {
 }
 
 #btn {
-    background-color: var(--yellowJS);
-    color: var(--blackJS);
     border-color: var(--yellowJS);
 }
+
 
 @media (min-width: 768px) {
     .header_img {
