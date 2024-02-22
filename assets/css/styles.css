@@ -11,7 +11,7 @@ html {
     scroll-behavior: smooth scroll;
 }
 
-body, #btn, #result, #chart {
+body, #btn {
     background-color: var(--yellowJS);
     color: var(--blackJS);
 }

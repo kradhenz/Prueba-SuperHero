@@ -51,13 +51,13 @@ $(document).ready(function () {
     function createHero(heroData) {
         return `
             <section class="card">
-            <h3>Super Héroe Encontrado</h3>
+            <h3 class="text-center">Super Héroe Encontrado</h3>
                 <section class="row">
-                    <section class="col-md-4">
-                        <img src="${heroData.image.url}" class="card-img" alt="" />
+                    <section class="col-md-4 pt-5">
+                        <img src="${heroData.image.url}" class="card-img ps-3 pt-2" alt="" />
                     </section>
                     <section class="col-md-8">
-                        <section class="card-body">
+                        <section class="card-body ps-1">
                             <h5 class="card-title">Nombre: ${heroData.name}</h5>
                             <p class="card-text">Conexiones: ${heroData.connections["group-affiliation"]}</p>
                             <ul class="list-group" id="heroInfoList"></ul>
